@@ -5,10 +5,12 @@
   <main>
     <div class="container-fluid">
       <div class="row">
-        <div class="col-3">
-          a
+        <div class="col-2 px-0">
+          <!-- SECTION ACCOUNT VIEW -->
+          <ProfileSection/>
         </div>
-        <div class="col-9">
+        <div class="col-10 px-0">
+          
           <router-view />
         </div>
       </div>
@@ -20,6 +22,7 @@
 import { computed } from 'vue'
 import { AppState } from './AppState'
 import Navbar from './components/Navbar.vue'
+import ProfileSection from './components/ProfileSection.vue'
 
 export default {
   setup() {
@@ -27,7 +30,7 @@ export default {
       appState: computed(() => AppState)
     }
   },
-  components: { Navbar }
+  components: { Navbar, ProfileSection }
 }
 </script>
 <style lang="scss">

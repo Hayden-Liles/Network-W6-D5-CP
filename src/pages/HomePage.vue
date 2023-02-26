@@ -1,6 +1,24 @@
 <template>
     <div class="container">
         <div class="row mb-5">
+
+            <div class="col-9 m-auto my-5" v-if="account.id">
+
+                <div class="d-flex bg-secondary p-3">
+                    <div>
+                        <img :src="account.picture" alt="" class="img-fluid rounded-circle">
+                    </div>
+                    <div class="mx-5 mt-3 flex-grow-1">
+                        <textarea class="bg-secondary p-1" placeholder="Share your thoughts"></textarea>
+                        <div class="d-flex justify-content-between pt-2">
+                            <button class="mdi mdi-attachment btn btn-info fs-4 d-flex align-items-center"><p class="fs-5 ms-2">Add Image</p></button>
+                            <button class="mdi mdi-send btn btn-info fs-4" type="submit"></button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
             <div class="col-9 m-auto" v-if="posts">
 
                 <div v-for="post in posts" class="mt-3 border rounded border-1 border-primary">
@@ -8,8 +26,10 @@
                 </div>
 
                 <div class="d-flex justify-content-center mt-3" v-if="postInfo && postInfo.totalPages > 1">
-                    <button class="mx-2 btn btn-primary" :disabled="postInfo.newer == null" @click="changeMainPage('previous')">Previous</button>
-                    <button class="mx-2 btn btn-primary" :disabled="postInfo.older == null" @click="changeMainPage('next')">NEXT</button>
+                    <button class="mx-2 btn btn-primary" :disabled="postInfo.newer == null"
+                        @click="changeMainPage('previous')">Previous</button>
+                    <button class="mx-2 btn btn-primary" :disabled="postInfo.older == null"
+                        @click="changeMainPage('next')">NEXT</button>
                 </div>
 
             </div>
@@ -37,22 +57,22 @@ export default {
                 Pop.error(error)
             }
         }
-        function clearPosts(){
+        function clearPosts() {
             postsServices.clearPosts()
         }
         onMounted(() => {
             getAllPosts();
         });
-        
-        onUnmounted(()=>{
+
+        onUnmounted(() => {
             clearPosts()
         })
 
         return {
             account: computed(() => AppState.account),
             posts: computed(() => AppState.posts),
-            
-            async changeMainPage(median){
+
+            async changeMainPage(median) {
                 try {
                     await postsServices.changeMainPage(median)
                 } catch (error) {
@@ -75,6 +95,14 @@ export default {
 
 p {
     margin: 0;
+}
+
+textarea{
+    width: 100%;
+    height: 150px;
+    overflow-y: scroll;
+    resize: none;
+    border: 3px dashed black !important; 
 }
 
 .fs-small {

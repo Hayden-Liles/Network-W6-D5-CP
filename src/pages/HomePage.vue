@@ -4,18 +4,7 @@
 
             <div class="col-9 m-auto my-5" v-if="account.id">
 
-                <div class="d-flex bg-secondary p-3">
-                    <div>
-                        <img :src="account.picture" alt="" class="img-fluid rounded-circle">
-                    </div>
-                    <div class="mx-5 mt-3 flex-grow-1">
-                        <textarea class="bg-secondary p-1" placeholder="Share your thoughts"></textarea>
-                        <div class="d-flex justify-content-between pt-2">
-                            <button class="mdi mdi-attachment btn btn-info fs-4 d-flex align-items-center"><p class="fs-5 ms-2">Add Image</p></button>
-                            <button class="mdi mdi-send btn btn-info fs-4" type="submit"></button>
-                        </div>
-                    </div>
-                </div>
+                <CreatePostForm/>
 
             </div>
 
@@ -45,6 +34,8 @@ import { logger } from '../utils/Logger';
 import Pop from '../utils/Pop';
 import { postsServices } from '../services/PostsServices'
 import PostCard from '../components/PostCard.vue';
+import CreatePostForm from '../components/CreatePostForm.vue';
+
 
 export default {
     setup() {
@@ -83,7 +74,7 @@ export default {
             postInfo: computed(() => AppState.postInfo),
         };
     },
-    components: { PostCard }
+    components: { PostCard, CreatePostForm }
 }
 </script>
 
@@ -97,27 +88,7 @@ p {
     margin: 0;
 }
 
-textarea{
-    width: 100%;
-    height: 150px;
-    overflow-y: scroll;
-    resize: none;
-    border: 3px dashed black !important; 
-}
-
 .fs-small {
     font-size: 14px;
-}
-
-#post-header {
-    background-color: rgba(202, 202, 202, 0.986);
-}
-
-#post-body {
-    background-color: aliceblue;
-}
-
-#post-body-img {
-    max-width: 90%;
 }
 </style>

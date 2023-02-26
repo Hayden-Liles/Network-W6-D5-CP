@@ -6,7 +6,7 @@
                     <div class="mt-4 rounded-circle text-center">
                         <!-- STUB Profile Picture -->
                             <router-link :to="{name: 'Profile', params: { profileId: account.id }}">
-                                <img :src="account.picture" alt="" class="img-fluid rounded-circle" id="profilePicture">
+                                <img :src="account.picture" alt="" class="img-fluid rounded-circle" id="profilePicture" @click="changeProfile(account.id)">
                                 <!-- STUB Profile Name -->
                             </router-link>
                         <p class="fs-3 fw-bold"><u>{{account.name}}</u></p>
@@ -30,15 +30,31 @@
 
 
 <script>
-import { computed } from 'vue';
+import { computed, onUnmounted } from 'vue';
+import { useRoute } from 'vue-router';
 import { AppState } from '../AppState';
 import AccountPage from '../pages/AccountPage.vue';
+import { postsServices } from '../services/PostsServices';
+import { profilesService } from '../services/ProfilesService';
+import { logger } from '../utils/Logger';
+import Pop from '../utils/Pop';
 
 export default {
     setup() {
 
         return {
             account: computed(() => AppState.account),
+
+            async changeProfile(profileId) {
+            try {
+                await profilesService.getProfileById(profileId)
+                await postsServices.getProfilePosts(profileId);
+            } catch (error) {
+                logger.error(error)
+                Pop.error(error)
+            }
+        }
+            
         }
     }
 }

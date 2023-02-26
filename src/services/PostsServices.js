@@ -95,6 +95,10 @@ class PostsServices {
         AppState.postInfo = null
     }
 
+    createPost(postData) {
+        logger.log(postData)
+    }
+
 }
 
 export const postsServices = new PostsServices()

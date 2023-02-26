@@ -1,5 +1,5 @@
 <template>
-    <div class="">
+    <div class="" v-if="posts.creator">
         <div class="d-flex align-items-center p-2 rounded-top" id="post-header">
             <router-link :to="{ name: 'Profile', params: { profileId: posts.creatorId } }">
                 <img :src="posts.creator.picture" class="rounded-circle creator-img" @error="fixImage(posts, 'profilePic')">

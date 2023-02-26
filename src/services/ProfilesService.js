@@ -8,7 +8,10 @@ class ProfilesService{
     async getProfileById(profileId){
         const res = await api.get('/api/profiles/'+ profileId)
         AppState.curProfile = new Profile(res.data)
-        logger.log('hi')
+    }
+
+    clearProfile(){
+        AppState.curProfile = null
     }
 
 }

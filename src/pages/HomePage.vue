@@ -7,9 +7,9 @@
                     <PostCard :posts="post" />
                 </div>
 
-                <div class="d-flex justify-content-center mt-3" v-if="postInfo">
-                    <button class="mx-2 btn btn-primary" :disabled="postInfo.newer == null" @click="changePage('previous')">Previous</button>
-                    <button class="mx-2 btn btn-primary" :disabled="postInfo.older == null" @click="changePage('next')">NEXT</button>
+                <div class="d-flex justify-content-center mt-3" v-if="postInfo && postInfo.totalPages > 1">
+                    <button class="mx-2 btn btn-primary" :disabled="postInfo.newer == null" @click="changeMainPage('previous')">Previous</button>
+                    <button class="mx-2 btn btn-primary" :disabled="postInfo.older == null" @click="changeMainPage('next')">NEXT</button>
                 </div>
 
             </div>
@@ -52,9 +52,9 @@ export default {
             account: computed(() => AppState.account),
             posts: computed(() => AppState.posts),
             
-            async changePage(median){
+            async changeMainPage(median){
                 try {
-                    await postsServices.changePage(median)
+                    await postsServices.changeMainPage(median)
                 } catch (error) {
                     Pop.error(error)
                     logger.error(error)

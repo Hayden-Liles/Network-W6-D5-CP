@@ -95,8 +95,25 @@ class PostsServices {
         AppState.postInfo = null
     }
 
-    createPost(postData) {
-        logger.log(postData)
+    async createPost(postData) {
+        postData.creatorId = AppState.account.id
+        let newPost = new Post(postData)
+        const res = await api.post('/api/posts', newPost)
+        AppState.posts.splice(19, 1)
+        newPost = new Post(res.data)
+        AppState.posts = [newPost, ...AppState.posts]
+    }
+
+    async submitLike(post, accountId){
+        const res = await api.post(`/api/posts/${post.id}/like`, accountId)
+        const postIndex = AppState.posts.findIndex(e => e.id == post.id)
+        AppState.posts[postIndex] = new Post(res.data)
+    }
+
+    async deletePost(post){
+        await api.delete(`/api/posts/${post.id}`)
+        const postIndex = AppState.posts.findIndex(e => e.id == post.id)
+        AppState.posts.splice(postIndex, 1)
     }
 
 }

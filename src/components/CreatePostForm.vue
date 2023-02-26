@@ -6,11 +6,11 @@
                 <img :src="account.picture" alt="" class="img-fluid rounded-circle">
             </div>
             <div class="mx-5 mt-3 flex-grow-1">
-                <textarea v-model="editable.body" class="bg-secondary p-1" placeholder="Share your thoughts"></textarea>
+                <textarea v-model="editable.body" class="bg-secondary p-1" placeholder="Share your thoughts" required></textarea>
                 <div class="d-flex justify-content-between pt-2">
-                    <button class="mdi mdi-attachment btn btn-info fs-4 d-flex align-items-center" @click="showImgUrlDiv">
+                    <i class="mdi mdi-attachment btn btn-info fs-4 d-flex align-items-center" @click="showImgUrlDiv">
                         <p class="fs-5 ms-2">Add Image</p>
-                    </button>
+                    </i>
                     <button class="mdi mdi-send btn btn-info fs-4" type="submit"></button>
                 </div>
                 <input v-model="editable.imgUrl" type="url" placeholder="https://" class="w-100 mt-2" id="imgUrl" hidden>
@@ -25,20 +25,27 @@
 import { ref, computed } from 'vue';
 import { AppState } from '../AppState';
 import { postsServices } from '../services/PostsServices';
+import { logger } from '../utils/Logger';
+import Pop from '../utils/Pop';
 
 export default {
     setup() {
         const editable = ref({})
-        
+
         return {
             editable,
-            account: computed(()=> AppState.account),
+            account: computed(() => AppState.account),
             showImgUrlDiv() {
                 imgUrl.hidden = !imgUrl.hidden
             },
-            async handleForm(){
-                const postData = editable.value
-                await postsServices.createPost(postData)
+            async handleForm() {
+                try {
+                    const postData = editable.value
+                    await postsServices.createPost(postData)
+                } catch (error) {
+                    logger.error(error)
+                    Pop.error(error)
+                }
 
                 editable.value = {}
             }
@@ -61,14 +68,15 @@ export default {
     max-width: 90%;
 }
 
-textarea{
+textarea {
     width: 100%;
     height: 150px;
     overflow-y: scroll;
     resize: none;
-    border: 3px dashed black !important; 
+    border: 3px dashed black !important;
 }
-p{
+
+p {
     margin: 0;
 }
 </style>

@@ -8,5 +8,6 @@ export const AppState = reactive({
 
   curProfile: null,
 
-  posts: null
+  posts: null,
+  postInfo: null
 })

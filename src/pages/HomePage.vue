@@ -3,8 +3,13 @@
         <div class="row mb-5">
             <div class="col-9 m-auto" v-if="posts">
 
-                <div v-for="post in posts" class="mt-3 border rounded border-1 border-primary ">
+                <div v-for="post in posts" class="mt-3 border rounded border-1 border-primary">
                     <PostCard :posts="post" />
+                </div>
+
+                <div class="d-flex justify-content-center mt-3" v-if="postInfo">
+                    <button class="mx-2 btn btn-primary" :disabled="postInfo.newer == null" @click="changePage('previous')">Previous</button>
+                    <button class="mx-2 btn btn-primary" :disabled="postInfo.older == null" @click="changePage('next')">NEXT</button>
                 </div>
 
             </div>
@@ -25,11 +30,11 @@ export default {
     setup() {
         async function getAllPosts() {
             try {
-                await postsServices.getAllPosts();
+                await postsServices.getAllPosts()
             }
             catch (error) {
-                logger.error(error);
-                Pop.error(error);
+                logger.error(error)
+                Pop.error(error)
             }
         }
         function clearPosts(){
@@ -46,6 +51,16 @@ export default {
         return {
             account: computed(() => AppState.account),
             posts: computed(() => AppState.posts),
+            
+            async changePage(median){
+                try {
+                    await postsServices.changePage(median)
+                } catch (error) {
+                    Pop.error(error)
+                    logger.error(error)
+                }
+            },
+            postInfo: computed(() => AppState.postInfo),
         };
     },
     components: { PostCard }

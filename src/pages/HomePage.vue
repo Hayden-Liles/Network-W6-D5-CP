@@ -15,6 +15,10 @@
                     <PostCard :posts="post" />
                 </div>
 
+                <div v-if="posts.length == 0">
+                    <h1 class="text-center">NO RESULTS FOUND</h1>
+                </div>
+
                 <div class="d-flex justify-content-center mt-3" v-if="postInfo && postInfo.totalPages > 1">
                     <button class="mx-2 btn btn-primary" :disabled="postInfo.newer == null"
                         @click="changeMainPage('previous')">Previous</button>

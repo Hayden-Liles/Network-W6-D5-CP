@@ -20,7 +20,14 @@
             <div class="d-flex align-items-center justify-content-center" v-if="profile.linkedin">
                 <a :href="profile.linkedin"><i class="mdi mdi-linkedin fs-1"></i></a>
             </div>
+            <div class="d-flex align-items-center justify-content-center" v-if="profile.resume">
+                <a :href="profile.resume"><i class="mdi mdi-file-account fs-1"></i></a>
+            </div>
         </div>
+    </div>
+
+    <div v-if="profiles.length == 0">
+        <h1 class="text-center">NO RESULTS FOUND</h1>
     </div>
 
 </template>

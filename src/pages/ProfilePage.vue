@@ -47,7 +47,7 @@
 
 
 <script>
-import { onMounted, computed, onUnmounted } from 'vue';
+import { onMounted, computed, onUnmounted, onUpdated } from 'vue';
 import { useRoute } from 'vue-router';
 import { logger } from '../utils/Logger';
 import { profilesService } from '../services/ProfilesService'
@@ -97,6 +97,9 @@ export default {
         });
         onUnmounted(() => {
             clearProfile()
+        })
+        onUpdated(() => {
+            window.scroll(0, 0)
         })
         return {
             posts: computed(() => AppState.posts),

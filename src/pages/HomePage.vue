@@ -1,11 +1,12 @@
 <template>
     <div class="container">
         <div class="row mb-5">
-
             <div class="col-9 m-auto my-5" v-if="account.id">
-
                 <CreatePostForm/>
+            </div>
 
+            <div class="col-9 d-flex m-auto justify-content-center">
+                <SearchForm/>
             </div>
 
             <div class="col-9 m-auto" v-if="posts">
@@ -22,12 +23,17 @@
                 </div>
 
             </div>
+
+            <div class="col-9 m-auto" v-if="profiles">
+                <ProfileCard/>
+            </div>
+
         </div>
     </div>
 </template>
 
 <script>
-import { onMounted, computed, onUnmounted } from 'vue';
+import { onMounted, computed, onUnmounted, onUpdated } from 'vue';
 import { AppState } from '../AppState';
 import { api } from '../services/AxiosService';
 import { logger } from '../utils/Logger';
@@ -35,6 +41,8 @@ import Pop from '../utils/Pop';
 import { postsServices } from '../services/PostsServices'
 import PostCard from '../components/PostCard.vue';
 import CreatePostForm from '../components/CreatePostForm.vue';
+import ProfileCard from '../components/ProfileCard.vue';
+import SearchForm from '../components/SearchForm.vue';
 
 
 export default {
@@ -58,10 +66,14 @@ export default {
         onUnmounted(() => {
             clearPosts()
         })
+        onUpdated(() => {
+            window.scroll(0, 0)
+        })
 
         return {
             account: computed(() => AppState.account),
             posts: computed(() => AppState.posts),
+            profiles: computed(() => AppState.profiles),
 
             async changeMainPage(median) {
                 try {
@@ -74,7 +86,7 @@ export default {
             postInfo: computed(() => AppState.postInfo),
         };
     },
-    components: { PostCard, CreatePostForm }
+    components: { PostCard, CreatePostForm, ProfileCard, SearchForm }
 }
 </script>
 

@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
-    <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
+    <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }" @click="getAllPosts()">
       <div class="d-flex flex-column align-items-center">
         <i class="mdi mdi-webhook icon-size">Webhook</i>
       </div>
@@ -19,10 +19,7 @@
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav me-auto">
         <li>
-          <!-- STUB GOOD REFERENCE -->
-          <!-- <router-link :to="{ name: 'About' }" class="btn text-success lighten-30 selectable text-uppercase">
-            About
-          </router-link> --> 
+          
         </li>
       </ul>
       <!-- LOGIN COMPONENT HERE -->
@@ -32,12 +29,18 @@
 </template>
 
 <script>
+import { postsServices } from '../services/PostsServices';
 import Login from './Login.vue'
+import SearchForm from './SearchForm.vue';
 export default {
   setup() {
-    return {}
+    return {
+      getAllPosts(){
+        postsServices.getAllPosts()
+      }
+    }
   },
-  components: { Login }
+  components: { Login, SearchForm }
 }
 </script>
 

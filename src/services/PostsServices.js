@@ -8,6 +8,7 @@ class PostsServices {
 
     async getAllPosts() {
         const res = await api.get(`/api/posts`)
+        AppState.profiles = null
         AppState.postInfo = {
             newer: res.data.newer || null,
             older: res.data.older || null,
@@ -117,5 +118,6 @@ class PostsServices {
     }
 
 }
+
 
 export const postsServices = new PostsServices()

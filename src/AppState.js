@@ -9,5 +9,7 @@ export const AppState = reactive({
   curProfile: null,
 
   posts: null,
-  postInfo: null
+  profiles: null,
+  postInfo: null,
+  ads: null,
 })

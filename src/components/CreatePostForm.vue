@@ -35,9 +35,11 @@ export default {
         return {
             editable,
             account: computed(() => AppState.account),
+
             showImgUrlDiv() {
                 imgUrl.hidden = !imgUrl.hidden
             },
+            
             async handleForm() {
                 try {
                     const postData = editable.value
@@ -71,7 +73,7 @@ export default {
 textarea {
     width: 100%;
     height: 150px;
-    overflow-y: scroll;
+    overflow-y: auto;
     resize: none;
     border: 3px dashed black !important;
 }

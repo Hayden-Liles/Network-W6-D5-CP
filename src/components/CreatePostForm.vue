@@ -1,12 +1,12 @@
 <template>
     <form @submit.prevent="handleForm">
 
-        <div class="d-flex bg-secondary p-3">
+        <div class="d-flex bg-light p-3 shadow rounded">
             <div>
                 <img :src="account.picture" alt="" class="img-fluid rounded-circle">
             </div>
             <div class="mx-5 mt-3 flex-grow-1">
-                <textarea v-model="editable.body" class="bg-secondary p-1" placeholder="Share your thoughts" required></textarea>
+                <textarea v-model="editable.body" class="p-1 text-dark fs-5" placeholder="Share your thoughts" required></textarea>
                 <div class="d-flex justify-content-between pt-2">
                     <i class="mdi mdi-attachment btn btn-info fs-4 d-flex align-items-center" @click="showImgUrlDiv">
                         <p class="fs-5 ms-2">Add Image</p>
@@ -75,7 +75,10 @@ textarea {
     height: 150px;
     overflow-y: auto;
     resize: none;
-    border: 3px dashed black !important;
+    border: 3px dashed rgba(13, 215, 255, 0.256) !important;
+    background-color: rgba(0, 255, 255, 0.056);
+    color: #ffffff;
+    outline: none;
 }
 
 p {

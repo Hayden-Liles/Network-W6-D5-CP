@@ -2,6 +2,7 @@ import { logger } from "../utils/Logger"
 import { api } from "./AxiosService"
 import { AppState } from "../AppState"
 import { Post } from "../models/Post"
+import Pop from "../utils/Pop"
 
 
 class PostsServices {
@@ -105,13 +106,13 @@ class PostsServices {
         AppState.posts = [newPost, ...AppState.posts]
     }
 
-    async submitLike(post, accountId){
+    async submitLike(post, accountId) {
         const res = await api.post(`/api/posts/${post.id}/like`, accountId)
         const postIndex = AppState.posts.findIndex(e => e.id == post.id)
         AppState.posts[postIndex] = new Post(res.data)
     }
 
-    async deletePost(post){
+    async deletePost(post) {
         await api.delete(`/api/posts/${post.id}`)
         const postIndex = AppState.posts.findIndex(e => e.id == post.id)
         AppState.posts.splice(postIndex, 1)

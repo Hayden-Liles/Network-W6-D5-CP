@@ -9,22 +9,24 @@
                 <p class="fw-light fs-small">{{ posts.createdAt.split("T")[0] }}</p>
             </div>
         </div>
-        <div class="ps-3 py-3 rounded-bottom" id="post-body">
+        <div class="ps-3 pt-2" id="post-body">
             <p class="ps-5 py-2">{{ posts.body }}</p>
             <div class="text-center" v-if="posts.imgUrl">
                 <img id="post-body-img" :src="posts.imgUrl" @error="fixImage(posts, 'postPic')" />
             </div>
         </div>
-        <div class="d-flex text-center"
+        <div id="post-body" class="d-flex text-center rounded-bottom"
             :class="account.id == posts.creatorId ? 'justify-content-between' : 'justify-content-end'">
             <i @click="deletePost(posts)" v-if="account.id == posts.creatorId"
                 class="mdi mdi-delete fs-2 p-0 ms-2 btn text-center" title="Delete This Post"></i>
-            <i @click="submitLike(posts)" v-if="account.id" class="mdi mdi-thumb-up d-flex m-1 btn btn-primary fs-5">
+
+            <i @click="submitLike(posts)" v-if="account.id" class="mdi mdi-thumb-up d-flex m-1 btn btn-info fs-5">
                 <p class="ps-2">{{ posts.likes.length }}</p>
             </i>
-            <i v-else class="mdi mdi-thumb-up d-flex m-1 btn btn-primary fs-5">
+            <i v-else class="mdi mdi-thumb-up d-flex m-1 btn btn-info fs-5">
                 <p class="ps-2">{{ posts.likes.length }}</p>
             </i>
+
         </div>
     </div>
 </template>
@@ -70,6 +72,11 @@ export default {
             },
             async deletePost(post) {
                 try {
+                    const check = await Pop.confirm()
+                    if(!check){
+                        Pop.toast("Delete Averted", "info")
+                        return 
+                    }
                     await postsServices.deletePost(post)
                 }
                 catch (error) {
@@ -98,7 +105,7 @@ p {
 }
 
 #post-header {
-    background-color: rgba(202, 202, 202, 0.986);
+    background-color: rgba(0, 255, 255, 0.129);
 }
 
 #post-body {

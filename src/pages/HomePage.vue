@@ -11,7 +11,7 @@
 
             <div class="col-9 m-auto" v-if="posts">
 
-                <div v-for="post in posts" class="mt-3 border rounded border-1 border-primary">
+                <div v-for="post in posts" class="mt-3 rounded shadow">
                     <PostCard :posts="post" />
                 </div>
 

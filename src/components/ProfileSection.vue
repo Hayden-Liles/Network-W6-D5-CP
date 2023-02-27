@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <div class="bg-primary px-2 py-1" v-if="account.id">
+                <div class="px-2 py-1" v-if="account.id">
                     <div class="mt-4 rounded-circle text-center">
                         <!-- STUB Profile Picture -->
                         <router-link :to="{ name: 'Profile', params: { profileId: account.id } }">

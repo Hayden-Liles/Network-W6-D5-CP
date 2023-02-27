@@ -34,16 +34,30 @@
 import { computed } from 'vue'
 import { AppState } from '../AppState'
 import { AuthService } from '../services/AuthService'
+import { logger } from '../utils/Logger'
+import Pop from '../utils/Pop'
 export default {
   setup() {
     return {
       user: computed(() => AppState.user),
       account: computed(() => AppState.account),
       async login() {
-        AuthService.loginWithPopup()
+        try {
+          AuthService.loginWithPopup()
+        }
+        catch(error) {
+          logger.error(error)
+          Pop.error(error)
+        }
       },
       async logout() {
-        AuthService.logout({ returnTo: window.location.origin })
+        try {
+          AuthService.logout({ returnTo: window.location.origin })
+        }
+        catch(error) {
+          logger.error(error)
+          Pop.error(error)
+        }
       }
     }
   }

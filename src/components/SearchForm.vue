@@ -25,6 +25,8 @@
 import { ref } from 'vue';
 import { api } from '../services/AxiosService';
 import { searchService } from '../services/SearchService'
+import { logger } from '../utils/Logger';
+import Pop from '../utils/Pop';
 
 export default {
     setup() {
@@ -34,12 +36,24 @@ export default {
             postEditable,
             profileEditable,
             async querySearchPosts() {
-                await searchService.querySearchPosts(postEditable.value)
-                postEditable.value = {}
+                try {
+                    await searchService.querySearchPosts(postEditable.value)
+                    postEditable.value = {}
+                }
+                catch (error) {
+                    logger.error(error)
+                    Pop.error(error)
+                }
             },
-            async querySearchProfiles(){
-                await searchService.querySearchProfiles(profileEditable.value)
-                profileEditable.value = {}
+            async querySearchProfiles() {
+                try {
+                    await searchService.querySearchProfiles(profileEditable.value)
+                    profileEditable.value = {}
+                }
+                catch (error) {
+                    logger.error(error)
+                    Pop.error(error)
+                }
             }
         }
     }

@@ -7,7 +7,6 @@ class AdsService{
 
     async getAds(){
         const res = await api.get('api/ads')
-        logger.log(res.data)
         AppState.ads = res.data.map(e => new Ad(e))
     }
 

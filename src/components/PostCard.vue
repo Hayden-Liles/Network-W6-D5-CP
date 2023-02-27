@@ -114,4 +114,5 @@ p {
 
 #post-body-img {
     max-width: 90%;
+    max-height: 500px;
 }</style>

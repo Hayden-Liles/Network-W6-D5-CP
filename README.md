@@ -18,7 +18,7 @@
    
    
   <!-- THE TITLE OF THE PROJECT -->
-  <h3 align="center">Netowrk</h3>
+  <h3 align="center">Network</h3>
 
   <!-- A BRIEF DESCRIPTION OF THE PROJECT -->
   <p align="center">
